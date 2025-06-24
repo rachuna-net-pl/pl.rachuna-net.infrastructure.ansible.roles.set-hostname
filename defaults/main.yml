@@ -1,0 +1,4 @@
+---
+input_debug: false
+input_hostname_fqdn: "{{ inventory_hostname }}"
+input_disable_reboot: false

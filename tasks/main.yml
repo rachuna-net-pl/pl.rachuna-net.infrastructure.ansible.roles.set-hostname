@@ -1,0 +1,41 @@
+---
+- name: "🔧 Change hostname"
+  hostname:
+    name: "{{ input_hostname_fqdn }}"
+  notify:
+    - "🚨 Reboot system"
+
+- name: "⚙️  Change /etc/hosts"
+  lineinfile:
+    path: /etc/hosts
+    regexp: '^127\.0\.1\.1'
+    line: "127.0.1.1       {{ input_hostname_fqdn.split('.')[0] }}       {{ input_hostname_fqdn }}"
+    state: present
+  when:
+    - input_hostname_fqdn.split('.') | length  > 1
+    - ansible_distribution != "alpine"
+  notify:
+    - "🚨 Reboot system"
+
+- name: "⚙️  Change /etc/hosts"
+  lineinfile:
+    path: /etc/hosts
+    regexp: '^127\.0\.1\.1'
+    line: "127.0.1.1       {{ input_hostname_fqdn }}       {{ input_hostname_fqdn.split('.')[0] }}"
+    state: present
+  when:
+    - input_hostname_fqdn.split('.') | length  > 1
+    - ansible_distribution == "alpine"
+  notify:
+    - "🚨 Reboot system"
+
+- name: "⚙️  Change /etc/hosts"
+  lineinfile:
+    path: /etc/hosts
+    regexp: '^127\.0\.1\.1'
+    line: "127.0.1.1       {{ input_hostname_fqdn.split('.')[0] }}"
+    state: present
+  when:
+    - input_hostname_fqdn.split('.') | length  <= 1
+  notify:
+    - "🚨 Reboot system"

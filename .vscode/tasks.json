@@ -1,0 +1,254 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "[DEPLOY] Ansible Playbook: Test connections",
+      "type": "shell",
+      "command": "/repo/pl.rachuna-net/tools/scripts/vscode/ansible/test_connection.bash ${workspaceFolder} ${input:ansible_image}",
+      "args": [],
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "[DEPLOY] Ansible Playbook: Run playbook",
+      "type": "shell",
+      "command": "/repo/pl.rachuna-net/tools/scripts/vscode/ansible/playbooks.bash ${workspaceFolder} ${input:ansible_image}",
+      "args": [],
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "[DEVELOPER] consul cli",
+      "type": "shell",
+      "command": "docker run -it --name consul-dev -u root -v /repo:/repo -v ~/.profile:/root/.profile ${input:consul_image} sh -c 'cd ${workspaceFolder} && bash /repo/pl.rachuna-net/tools/scripts/vscode/developer/consul.bash && exec bash' && docker rm consul-dev",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "[DEVELOPER] vault cli",
+      "type": "shell",
+      "command": "docker run -it --name vault-dev -u root -v /repo:/repo -v ~/.profile:/root/.profile ${input:vault_image} sh -c 'cd ${workspaceFolder} && bash /repo/pl.rachuna-net/tools/scripts/vscode/developer/vault.bash && exec bash' && docker rm vault-dev",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "[DISCIPLINE] analize project",
+      "type": "shell",
+      "command": "/repo/pl.rachuna-net/tools/scripts/vscode/discipline/analize_project.bash ${workspaceFolder}",
+      "problemMatcher": [],
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    },
+    {
+      "label": "[DISCIPLINE] Generate README.md",
+      "type": "shell",
+      "command": "bash /repo/pl.rachuna-net/tools/scripts/vscode/gitlab/generate-readme.bash",
+      "options": {
+        "env": {
+          "REPOSITORY_ROOT_PATH": "/repo"
+        }
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "[mkDocs] Start MkDocs Service",
+      "type": "shell",
+      "command": "/repo/pl.rachuna-net/tools/scripts/vscode/mkdocs/start_service.bash ${workspaceFolder} ${input:mkdocs_image}",
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "[UNIT-TEST] Molecule Test",
+      "type": "shell",
+      "command": "/repo/pl.rachuna-net/tools/scripts/vscode/molecule/integration-test.bash ${workspaceFolder} ${input:ansible_image}",
+      "args": [],
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "[VALIDATE] packer",
+      "type": "shell",
+      "command": "/repo/pl.rachuna-net/tools/scripts/vscode/packer/validate.bash ${workspaceFolder} ${input:packer_image}",
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "[BUILD] packer",
+      "type": "shell",
+      "command": "/repo/pl.rachuna-net/tools/scripts/vscode/packer/build.bash ${workspaceFolder} ${input:packer_image}",
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "[DEPLOY] terraform",
+      "type": "shell",
+      "command": "/repo/pl.rachuna-net/tools/scripts/vscode/terraform/deploy.bash ${workspaceFolder} ${input:terraform_image}",
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "[VALIDATE] terraform",
+      "type": "shell",
+      "command": "/repo/pl.rachuna-net/tools/scripts/vscode/terraform/validate.bash ${workspaceFolder} ${input:terraform_image}",
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "[VALIDATE] yamllint",
+      "type": "shell",
+      "command": "/repo/pl.rachuna-net/tools/scripts/vscode/yamllint/validate.bash ${workspaceFolder} ${input:python_image}",
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "ansible_image",
+      "type": "pickString",
+      "description": "Ansible docker image",
+      "options": [
+        "registry.gitlab.com/pl.rachuna-net/containers/ansible:1.0.0"
+      ],
+      "default": "registry.gitlab.com/pl.rachuna-net/containers/ansible:1.0.0"
+    },
+    {
+      "id": "consul_image",
+      "type": "pickString",
+      "description": "consul docker image",
+      "options": [
+        "registry.gitlab.com/pl.rachuna-net/containers/consul:1.0.0"
+      ],
+      "default": "registry.gitlab.com/pl.rachuna-net/containers/consul:1.0.0"
+    },
+    {
+      "id": "mkdocs_image",
+      "type": "pickString",
+      "description": "MkDocs docker image",
+      "options": [
+        "registry.gitlab.com/pl.rachuna-net/containers/mkdocs:1.0.0"
+      ],
+      "default": "registry.gitlab.com/pl.rachuna-net/containers/mkdocs:1.0.0"
+    },
+    {
+      "id": "packer_image",
+      "type": "pickString",
+      "description": "Packer docker image",
+      "options": [],
+      "default": null
+    },
+    {
+      "id": "python_image",
+      "type": "pickString",
+      "description": "Python docker image",
+      "options": [
+        "registry.gitlab.com/pl.rachuna-net/containers/python:1.0.0",
+        "registry.gitlab.com/pl.rachuna-net/containers/python:1.0.1",
+        "registry.gitlab.com/pl.rachuna-net/containers/python:1.0.2"
+      ],
+      "default": "registry.gitlab.com/pl.rachuna-net/containers/python:1.0.2"
+    },
+    {
+      "id": "semantic_release_image",
+      "type": "pickString",
+      "description": "semantic-release docker image",
+      "options": [
+        "registry.gitlab.com/pl.rachuna-net/containers/semantic-release:1.0.0",
+        "registry.gitlab.com/pl.rachuna-net/containers/semantic-release:1.0.1"
+      ],
+      "default": "registry.gitlab.com/pl.rachuna-net/containers/semantic-release:1.0.1"
+    },
+    {
+      "id": "sonar_scanner_image",
+      "type": "pickString",
+      "description": "sonar-scanner docker image",
+      "options": [
+        "registry.gitlab.com/pl.rachuna-net/containers/sonar-scanner:1.0.0",
+        "registry.gitlab.com/pl.rachuna-net/containers/sonar-scanner:1.0.1",
+        "registry.gitlab.com/pl.rachuna-net/containers/sonar-scanner:v1.0.0-0802475b"
+      ],
+      "default": "registry.gitlab.com/pl.rachuna-net/containers/sonar-scanner:v1.0.0-0802475b"
+    },
+    {
+      "id": "terraform_image",
+      "type": "pickString",
+      "description": "terraform docker image",
+      "options": [
+        "registry.gitlab.com/pl.rachuna-net/containers/terraform:1.0.0",
+        "registry.gitlab.com/pl.rachuna-net/containers/terraform:1.1.0",
+        "registry.gitlab.com/pl.rachuna-net/containers/terraform:1.1.1",
+        "registry.gitlab.com/pl.rachuna-net/containers/terraform:1.1.2"
+      ],
+      "default": "registry.gitlab.com/pl.rachuna-net/containers/terraform:1.1.2"
+    },
+    {
+      "id": "vault_image",
+      "type": "pickString",
+      "description": "consul docker image",
+      "options": [
+        "registry.gitlab.com/pl.rachuna-net/containers/vault:1.0.0"
+      ],
+      "default": "registry.gitlab.com/pl.rachuna-net/containers/vault:1.0.0"
+    }
+  ]
+}
