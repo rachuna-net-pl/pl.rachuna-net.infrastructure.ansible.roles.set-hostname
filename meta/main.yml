@@ -3,9 +3,14 @@ galaxy_info:
   role_name: set_hostname
   namespace: pl_rachuna_net
   author: "Maciej Rachuna"
-  description: "Ansible Role do ustawiania nazwy hosta (hostname) na serwerach Linux."
+  description: "Ansible Role do ustawiania nazwy hosta (hostname) na serwerach Linux. Obsługuje konfigurację FQDN, modyfikację /etc/hosts oraz zarządzanie restartami dla różnych dystrybucji Linux."
+  company: "rachuna.net"
   license: "MIT"
   min_ansible_version: "2.9"
+
+  # Dodatkowe metadane
+  issue_tracker_url: "https://github.com/pl-rachuna-net/ansible-roles/issues"
+  github_branch: "main"
 
   platforms:
     - name: Debian
@@ -22,12 +27,17 @@ galaxy_info:
         - "7"
         - "8"
         - "9"
+
   galaxy_tags:
-    - ssh
-    - security
-    - hardening
-    - openssh
-    - server
+    - hostname
+    - system
+    - configuration
+    - networking
     - linux
+    - server
+    - fqdn
+    - hosts
+    - dns
+    - setup
 
 dependencies: []
